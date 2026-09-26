@@ -3,3 +3,5 @@ PHASE 1 - Passed data between .then() calls by returning it. In first .then() ch
 PHASE 2 - A promise means data that isnt ready yet. WHen fetch() is called it takes time for the server to response so that will either succeed with data or fail. API being down it fails or if URL is wrong you get an error response. .catch() instead of crashing the program logs the message.
 
 PHASE 3 - Fetching to update only part of the page makes it faster by instead of redownloading the whole page, the data is requested and only the result container changes.
+
+PHASE 4 - Async/await reads top down like a normal code would. This is easier for me to see whats happening in order.

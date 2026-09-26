@@ -1,14 +1,16 @@
-function searchWord(word){
+async function searchWord(word){
     const container = document.getElementById('result-container');
     container.innerHTML = '';
-fetch('https://freedictionaryapi.com/api/v1/entries/en/' + word)
-  .then((response) => {
+
+    const response = await fetch ('https://freedictionaryapi.com/api/v1/entries/en/' + word);
+
     if (!response.ok) {
-        throw new Error('Bad response');
+        container.textContent = 'Service is down';
+        return;
     }
-    return response.json();
-  })
-  .then((data) => {
+
+    const data = await response.json();
+
     if (data.entries.length === 0) {
         container.textContent = 'Word not found';
     } else {
@@ -24,10 +26,7 @@ fetch('https://freedictionaryapi.com/api/v1/entries/en/' + word)
        }
        container.appendChild(ul);
     }
-  })
-  .catch((error) => {
-    container.textContent = 'Error: Couldnt connect to dictionary';
-  });
+  
 }
   const searchBtn = document.getElementById('search-btn');
     searchBtn.addEventListener('click', () => {
