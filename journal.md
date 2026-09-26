@@ -1,0 +1,1 @@
+PHASE 1 - Passed data between .then() calls by returning it. In first .then() check if the response is ok and return response.json(). Whatver is returned gets handed off to the next.then() as its parameters named data.
