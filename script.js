@@ -1,4 +1,7 @@
-fetch('https://freedictionaryapi.com/api/v1/entries/en/hello')
+function searchWord(word){
+    const container = document.getElementById('result-container');
+    container.innerHTML = '';
+fetch('https://freedictionaryapi.com/api/v1/entries/en/' + word)
   .then((response) => {
     if (!response.ok) {
         throw new Error('Bad response');
@@ -7,12 +10,27 @@ fetch('https://freedictionaryapi.com/api/v1/entries/en/hello')
   })
   .then((data) => {
     if (data.entries.length === 0) {
-        console.log('Word not found');
+        container.textContent = 'Word not found';
     } else {
-        console.log(data.word);
-        console.log(data.entries[0].senses[0].definition);
+       const h2 = document.createElement('h2');
+       h2.textContent = data.word;
+       container.appendChild(h2);
+
+       const ul = document.createElement('ul');
+       for (const sense of data.entries[0].senses) {
+        const li = document.createElement('li');
+        li.textContent = sense.definition;
+        ul.appendChild(li);
+       }
+       container.appendChild(ul);
     }
   })
   .catch((error) => {
-    console.log('Error: Couldnt connect to the dictionary');
+    container.textContent = 'Error: Couldnt connect to dictionary';
   });
+}
+  const searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', () => {
+        const word = document.getElementById('word-input').value.toLowerCase();
+        searchWord(word);
+    });
